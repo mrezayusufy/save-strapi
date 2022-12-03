@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "activities",
+  "info": {
+    "singularName": "activity",
+    "pluralName": "activities",
+    "displayName": "Activity",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "seen": {
+      "type": "boolean"
+    },
+    "action": {
+      "type": "enumeration",
+      "enum": [
+        "sent",
+        "accepted",
+        "rejected",
+        "received"
+      ]
+    },
+    "accepter": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::accepter.accepter",
+      "inversedBy": "activities"
+    },
+    "donor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::donor.donor",
+      "inversedBy": "activities"
+    },
+    "request": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::request.request",
+      "inversedBy": "activities"
+    }
+  }
+}

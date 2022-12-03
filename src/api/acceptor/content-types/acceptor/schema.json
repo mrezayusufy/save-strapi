@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "acceptors",
+  "info": {
+    "singularName": "acceptor",
+    "pluralName": "acceptors",
+    "displayName": "acceptor"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
