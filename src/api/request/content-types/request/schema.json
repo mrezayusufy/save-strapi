@@ -20,16 +20,16 @@
         "rejected"
       ]
     },
-    "accepter": {
+    "acceptor": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::accepter.accepter",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "requests"
     },
     "donor": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::donor.donor",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "requests"
     },
     "activities": {

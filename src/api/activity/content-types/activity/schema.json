@@ -24,16 +24,16 @@
         "received"
       ]
     },
-    "accepter": {
+    "acceptor": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::accepter.accepter",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "activities"
     },
     "donor": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::donor.donor",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "activities"
     },
     "request": {

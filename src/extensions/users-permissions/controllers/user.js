@@ -1,31 +1,36 @@
 'use strict';
 
 /**
- * user controller
+ * User.js controller
+ *
+ * @description: A set of functions called "actions" for managing `User`.
  */
-const { sanitizeEntity } = require('strapi-utils');
-const sanitizeUser = user =>
-  sanitizeEntity(user, {
-    model: strapi.query('user', 'users-permissions').model,
-  });
 
-const { createCoreController } = require('@strapi/strapi').factories;
+const utils = require('@strapi/utils');
+const { getService } = require('../utils');
+const { validateCreateUserBody, validateUpdateUserBody } = require('./validation/user');
+
+const { sanitize } = utils;
+const { ApplicationError, ValidationError, NotFoundError } = utils.errors;
+
+const sanitizeOutput = (user, ctx) => {
+  const schema = strapi.getModel('plugin::users-permissions.user');
+  const { auth } = ctx.state;
+
+  return sanitize.contentAPI.output(user, schema, { auth });
+};
 
 module.exports = {
-  /**
-   * Retrieve authenticated user.
-   * @return {Object|Array}
-   */
-  async me(ctx) {
-    const user = ctx.state.user;
+  async my(ctx) {
+    const authUser = ctx.state.user;
+    const { query } = ctx;
 
-    if (!user) {
-      return ctx.badRequest(null, [{ messages: [{ id: 'No authorization header was found' }] }]);
+    if (!authUser) {
+      return ctx.unauthorized();
     }
-    const userFound = await strapi.query('user').findOne({ user: user.id }, []);
-    const withUserFound = { ...user, userFound }
 
-    const data = sanitizeUser(withUserFound);
-    ctx.send(data);
-  }
-};
+    const user = await getService('user').fetch(authUser.id, query);
+
+    ctx.body = await sanitizeOutput(user, ctx);
+  },
+}

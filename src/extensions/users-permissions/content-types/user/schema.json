@@ -95,12 +95,24 @@
     "userRole": {
       "type": "enumeration",
       "enum": [
-        "ACCEPTOR",
-        "DONOR"
+        "acceptor",
+        "donor"
       ]
     },
     "gender": {
       "type": "boolean"
+    },
+    "requests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::request.request",
+      "mappedBy": "acceptor"
+    },
+    "activities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::activity.activity",
+      "mappedBy": "acceptor"
     }
   }
 }
