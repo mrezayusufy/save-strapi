@@ -174,7 +174,10 @@ module.exports = (plugin) => {
     handler: 'auth.register',
     config: {
       prefix: '',
+      enabled: true,
+      headers: "*",
       auth: false,
+      origin: ["*", "http://localhost:3000"],
     },
   });
 
